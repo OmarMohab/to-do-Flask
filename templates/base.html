@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <title>Todo App</title>
+</head>
+<body>
+
+    <header>
+    <h1 id="title" class="text-center">Task Manger</h1>
+    </header>
+    
+    <form action="/add", method="POST">
+        <div class="form-group">
+            <label for="title">New Task</label>
+            <br>
+            <input class="form-control" type="text" name="title" placeholder="Enter Task" required>
+            <br>
+            <button id="add-button" calss="add_button" type="submit">Add task</button>
+        </div>
+    </form>
+
+    <div class="task">
+    {% for todo in todo_list %}
+        <p class="instructions">{{todo.title}}</p>
+
+        {% if todo.complete == False %}
+            <span id="not-completed">Not Completed</span>
+        {%else%}
+            <span id="completed">Completed</span>
+        {%  endif %}
+
+        <a id="update-button" href="/update/{{todo.id}}">Update Task</a>
+        <a id="delete-button" href="/delete/{{todo.id}}">Delete Task</a>
+    {% endfor %}
+    </div>
+</body>
+</html>
